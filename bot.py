@@ -40,31 +40,30 @@ def callback_inline(call):
 
             elif call.data == 'complaint':
 
-                markup = types.InlineKeyboardMarkup(row_width=1)
-                item1 = types.InlineKeyboardButton("Instagram", url="https://help.instagram.com/547601325292351")
-                item2 = types.InlineKeyboardButton("Facebook",
-                                                   url="https://support.tiktok.com/ru/privacy-safety/report-inappropriate-content-ru")
-                item3 = types.InlineKeyboardButton("Tik Tok",
-                                                   url="https://support.google.com/youtube/answer/2802027?hl=ru")
-                item4 = types.InlineKeyboardButton("Facebook", url="https://www.facebook.com/help/181495968648557")
+                markup_social_media = types.InlineKeyboardMarkup(row_width=1)
+                item1 = types.InlineKeyboardButton("Instagram", url=config.InstUrl)
+                item2 = types.InlineKeyboardButton("Facebook", url=config.FacebookUrl)
+                item3 = types.InlineKeyboardButton("Tik Tok", url=config.TiktokUrl)
+                item4 = types.InlineKeyboardButton("YouTube", url=config.YouTubeUrl)
+                item5 = types.InlineKeyboardButton("VK", url=config.VKUrl)
 
-                markup.add(item1, item2, item3, item4)
+                markup_social_media.add(item1, item2, item3, item4, item5)
                 bot.send_message(call.message.chat.id,
                                  "Есть ссылки на службу поддержки конкретной социальной сети",
-                                 reply_markup=markup)
+                                 reply_markup=markup_social_media)
 
             elif call.data == 'support':
-                bot.send_message(call.message.chat.id, "Вы можете задать вопрос, который беспокоит вас конкретно:"
-                                                       "номера служб поддержки Республики Казахстан/n"
-                                                       "телефон доверия 116-16"
-                                                       "национальный телефон доверия для детей: 150")
+                bot.send_message(call.message.chat.id, "Вы можете задать вопрос, который беспокоит вас конкретно:\n"
+                                                       "номера служб поддержки Республики Казахстан\n"
+                                                       "телефон доверия 116-16\n"
+                                                       "национальный телефон доверия для детей: 150\n")
             # elif call.data == 'parents':
             #     bot.send_message(call.message.chat.id, "parents link")
 
             bot.answer_callback_query(callback_query_id=call.id,
                                       show_alert=False,
                                       text="ЭТО ТЕСТОВОЕ УВЕДОМЛЕНИЕ!!11",
-                                      reply_markup=markup)
+                                      reply_markup=markup_social_media)
     except Exception as e:
         print(repr(e))
 
